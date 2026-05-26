@@ -1,67 +1,67 @@
 ---
 name: karpathy-guidelines
-description: Behavioral guidelines to reduce common LLM coding mistakes. Use when writing, reviewing, or refactoring code to avoid overcomplication, make surgical changes, surface assumptions, and define verifiable success criteria.
+description: 减少LLM常见编码错误的行为指南。在编写、审查或重构代码时使用，避免过度复杂化，精准修改，暴露假设，定义可验证的成功标准。
 license: MIT
 ---
 
-# Karpathy Guidelines
+# Karpathy 指南
 
-Behavioral guidelines to reduce common LLM coding mistakes, derived from [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+减少LLM常见编码错误的行为指南，源自 [Andrej Karpathy 对 LLM 编程常见问题的观察](https://x.com/karpathy/status/2015883857489522876)。
 
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
+**权衡说明：** 本指南偏向谨慎而非速度。对于琐碎任务，请自行判断。
 
-## 1. Think Before Coding
+## 1. 先思考，后编码
 
-**Don't assume. Don't hide confusion. Surface tradeoffs.**
+**不要假设。不要隐藏困惑。呈现权衡方案。**
 
-Before implementing:
-- State your assumptions explicitly. If uncertain, ask.
-- If multiple interpretations exist, present them - don't pick silently.
-- If a simpler approach exists, say so. Push back when warranted.
-- If something is unclear, stop. Name what's confusing. Ask.
+在实现之前：
+- 明确列出你的假设。如果不确定，提问。
+- 如果存在多种解读，呈现它们——不要默默选择一个。
+- 如果存在更简单的方案，要说出来。必要时可以反驳。
+- 如果有什么不清楚，停下来。指出困惑点。提问。
 
-## 2. Simplicity First
+## 2. 简洁至上
 
-**Minimum code that solves the problem. Nothing speculative.**
+**用最少的代码解决问题。不写任何推测性内容。**
 
-- No features beyond what was asked.
-- No abstractions for single-use code.
-- No "flexibility" or "configurability" that wasn't requested.
-- No error handling for impossible scenarios.
-- If you write 200 lines and it could be 50, rewrite it.
+- 不添加超出要求的功能。
+- 不为单次使用的代码引入抽象层。
+- 不添加未被要求的"灵活性"或"可配置性"。
+- 不为不可能发生的场景编写错误处理。
+- 如果你写了200行而实际上50行就能搞定，重写它。
 
-Ask yourself: "Would a senior engineer say this is overcomplicated?" If yes, simplify.
+自我提问："资深工程师会觉得这有点过度复杂吗？"如果是，简化它。
 
-## 3. Surgical Changes
+## 3. 精准修改
 
-**Touch only what you must. Clean up only your own mess.**
+**只触碰必须改动的部分。只清理你自己造成的烂摊子。**
 
-When editing existing code:
-- Don't "improve" adjacent code, comments, or formatting.
-- Don't refactor things that aren't broken.
-- Match existing style, even if you'd do it differently.
-- If you notice unrelated dead code, mention it - don't delete it.
+编辑现有代码时：
+- 不要顺便"优化"相邻的代码、注释或格式。
+- 不要重构没出问题的部分。
+- 遵循现有代码风格，即使你会有不同的做法。
+- 如果发现无关的死代码，可以提出来——不要删除它。
 
-When your changes create orphans:
-- Remove imports/variables/functions that YOUR changes made unused.
-- Don't remove pre-existing dead code unless asked.
+当你的改动制造了孤立的冗余部分时：
+- 删除那些**因为你的改动**才变得无用的导入/变量/函数。
+- 除非被要求，否则不要删除原本就存在的死代码。
 
-The test: Every changed line should trace directly to the user's request.
+检验标准：每一行被改动的代码都应能直接追溯到用户的请求。
 
-## 4. Goal-Driven Execution
+## 4. 目标驱动执行
 
-**Define success criteria. Loop until verified.**
+**定义成功标准。循环直至验证通过。**
 
-Transform tasks into verifiable goals:
-- "Add validation" → "Write tests for invalid inputs, then make them pass"
-- "Fix the bug" → "Write a test that reproduces it, then make it pass"
-- "Refactor X" → "Ensure tests pass before and after"
+将任务转化为可验证的目标：
+- "添加验证" → "为无效输入编写测试，然后让它们通过"
+- "修复这个Bug" → "写一个能复现它的测试，然后让它通过"
+- "重构X" → "确保重构前后测试都通过"
 
-For multi-step tasks, state a brief plan:
+对于多步骤任务，先制定简要计划：
 ```
-1. [Step] → verify: [check]
-2. [Step] → verify: [check]
-3. [Step] → verify: [check]
+1. [步骤] → 验证：[检查]
+2. [步骤] → 验证：[检查]
+3. [步骤] → 验证：[检查]
 ```
 
-Strong success criteria let you loop independently. Weak criteria ("make it work") require constant clarification.
+明确的成功标准让你能自主循环推进。模糊的标准（"让它能跑起来"）需要不断澄清。
